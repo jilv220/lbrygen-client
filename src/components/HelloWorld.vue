@@ -8,7 +8,7 @@
     </p>
     <h3>Installed CLI Plugins</h3>
     <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
+      <li><a :href="streamUrl"> <u>Script Book</u> </a></li>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
     </ul>
     <h3>Essential Links</h3>
@@ -31,10 +31,33 @@
 </template>
 
 <script>
+import EventService from '@/services/EventService.js';
 export default {
   name: 'HelloWorld',
+  data() {
+    // NEW - initialize the event object
+    return {
+      streamUrl: ''
+    }
+  },
+  created() {
+    this.getEventData(); // NEW - call getEventData() when the instance is created
+  },
   props: {
     msg: String
+  },
+  methods: {
+    async getEventData() {
+      // Use the eventService to call the getEventSingle() method
+      EventService.getStreamByUrl('classic_shell_scripting')
+      .then(
+        response => {
+          console.log(response)
+          this.streamUrl = response
+          }
+        );
+    }
+
   }
 }
 </script>
