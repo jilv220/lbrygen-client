@@ -20,9 +20,9 @@
 
     <div v-if="sourceData!=''">
         <li v-for="item in sourceData.result.items" :key="item">
-            <a @click="getStream(item.short_url)">
+            <p id="streaming-url" class="text-left" @click="getStream(item.short_url)">
                 {{item.short_url}}
-            </a>
+            </p>
         </li>
     </div>
    
@@ -75,7 +75,7 @@ export default {
 li {
     list-style-type: none;
 }
-button, a {
+button {
     cursor: pointer;
 }
 .pb-04 {
@@ -86,5 +86,15 @@ button, a {
 }
 .mr-04 {
     margin-right: 0.4rem;
+}
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+
+#streaming-url {
+    cursor: pointer;
 }
 </style>
