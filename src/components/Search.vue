@@ -10,7 +10,7 @@
         <button @click="searchContent(picked)">Search</button>
     </div>
 
-    <form class="pb-04" autocomplete="off">
+    <form class="pb-06" autocomplete="off">
         <input type="radio" id="tag" value="tag" v-model="picked">
         <label for="tag">Search by Tag</label>
         <input type="radio" id="text" value="text" v-model="picked">
@@ -20,9 +20,14 @@
 
     <div v-if="sourceData!=''">
         <li v-for="item in sourceData.result.items" :key="item">
-            <p id="streaming-url" class="text-left" @click="getStream(item.short_url)">
+            <div class="flex-x">
+            <p id="streaming-url" class="m-04" @click="getStream(item.short_url)">
                 {{item.short_url}}
             </p>
+            <p v-if="item.value.source"> {{item.value.source.media_type}} </p>
+            <p v-else> unknown </p>
+            </div>
+            <hr>
         </li>
     </div>
    
@@ -30,7 +35,9 @@
 </template>
 
 <script>
-import EventService from "@/services/EventService.js";
+import EventService from "@/services/EventService.js"
+import Normalizer from '@/utils/Normalizer.js'
+
 export default {
   data() {
     return {
@@ -46,15 +53,16 @@ export default {
   methods: {
     async searchContent(picked) {
       // console.log(picked)
+      let normalizedSearch = Normalizer.run(this.search)
       switch(picked) {
           case "tag":
-              EventService.getContentByTag(this.search).then((response) => {
+              EventService.getContentByTag(normalizedSearch).then((response) => {
                   // console.log(response)
                   this.sourceData = response
                 })
               break
           case "text":
-              EventService.getContentByText(this.search).then((response) => {
+              EventService.getContentByText(normalizedSearch).then((response) => {
                   // console.log(response)
                   this.sourceData = response
                 })
@@ -81,8 +89,14 @@ button {
 .pb-04 {
     padding-bottom: 0.4rem;
 }
+.pb-06 {
+    padding-bottom: 0.6rem;
+}
 .pr-04 {
     padding-right: 0.4rem;
+}
+.m-04 {
+    margin: 0.4rem;
 }
 .mr-04 {
     margin-right: 0.4rem;
@@ -92,6 +106,11 @@ button {
 }
 .text-left {
     text-align: left;
+}
+.flex-x {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #streaming-url {
