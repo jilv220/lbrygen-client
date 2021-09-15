@@ -1,6 +1,6 @@
 <template>
-  <div class="mx-4" >
-    <div class="pb-04 flex-x">
+  <div id="content" class="mx-10" >
+    <div id="search-bar" class="pb-04 flex-x">
         <ion-input 
             class="mr-06"
             type="text" 
@@ -139,6 +139,10 @@ ion-input {
     margin-right: 4rem;
     margin-left: 4rem;
 }
+.mx-10 {
+    margin-right: 10rem;
+    margin-left: 10rem;
+}
 .text-right {
     text-align: right;
 }
@@ -157,5 +161,11 @@ ion-input {
 
 #streaming-url {
     cursor: pointer;
+}
+@media (max-width: 900px) { 
+    #content {
+        margin-right: 4rem;
+        margin-left: 4rem;
+    }
 }
 </style>

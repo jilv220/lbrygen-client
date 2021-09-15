@@ -1,6 +1,7 @@
 export default {
     run(text) {
-        let result = text.replace(/\s/g, '-');
+        let trimed_text = text.trim()
+        let result = trimed_text.replace(/\s/g, '-');
         return result
     }
 }
