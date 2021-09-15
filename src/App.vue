@@ -1,19 +1,31 @@
 <template>
-  <div>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <Search/>
-  </div>
+  <ion-app>
+    <ion-header class="ion-no-border">
+    </ion-header>
+    <ion-content>
+      <img alt="Vue logo" src="./assets/logo.png">
+      <Search/>
+    </ion-content>
+  </ion-app>
 </template>
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
 import Search from './components/Search.vue'
+import { 
+  IonApp,
+  IonContent, 
+  IonHeader,
+} from '@ionic/vue';
 
 export default {
   name: 'App',
   components: {
     //HelloWorld,
-    Search
+    Search,
+    IonApp,
+    IonContent, 
+    IonHeader,
   }
 }
 </script>

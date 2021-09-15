@@ -1,6 +1,6 @@
 import App from '@/App.vue'
 import Search from '@/components/Search.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from '@ionic/vue-router';
 
 
 const routes = [
