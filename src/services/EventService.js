@@ -8,6 +8,11 @@ export default {
     return res.data;
   },
 
+  async downloadFromStream(url) {
+    let res = await axios.get(`${base_api}/getStream?url=${url}`, { params: { d: "y" } });
+    return res.data;
+  },
+
   async getContentByTag(tag) {
 
     let res = await axios.get(`${base_api}/search?t=${tag}`)

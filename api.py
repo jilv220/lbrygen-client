@@ -47,12 +47,22 @@ def get_stream_from_url():
     uri = request.args.get("url")
     #print(uri)
 
+    download = request.args.get("d")
+    #print(download)
+
     streaming_url = ""
-    timeout = ""
+    e = ""
+    is_download = False
+
+    if(download == "y"):
+        is_download = True
 
     lbry_get = requests.post(f'{base}:{lbry_port}', 
         json={  "method": "get", 
-                "params": {"uri": str(uri), "save_file": False, "timeout": 10}   }
+                "params": {"uri": str(uri), 
+                           "save_file": is_download, 
+                           "file_name": str(uri).replace('lbry://', ''),
+                           "timeout": 10}   }
         ).json()
 
     #print(lbry_get)
@@ -60,12 +70,12 @@ def get_stream_from_url():
     try:
         streaming_url = lbry_get["result"]["streaming_url"]
     except:
-        timeout = lbry_get["result"]["error"]
-        print("Time out in 3 seconds !!")
+        e = lbry_get["result"]["error"]
+        print(e)
     
     #download_path = lbry_get["result"]["download_path"]
-    if timeout != "":
-        return "timeout"
+    if e != "":
+        return "error"
 
     #print(streaming_url)
     #print(download_path)

@@ -22,15 +22,21 @@
         <li v-for="item in sourceData.result.items" :key="item">
             <ion-item>
                 <ion-label id="streaming-url" class="m-04" @click="getStream(item.short_url)">
-                    {{item.short_url}}
+                    {{item.short_url.replace('lbry://','')}}
                 </ion-label>
                 <ion-label 
                     v-if="item.value.source"
                     class="ion-text-right"
-                > 
+                    @click="download(item.short_url)"
+                >   
+                    <ion-button>
+                        Download
+                    </ion-button>
                     {{item.value.source.media_type}} 
                 </ion-label>
-                <ion-label v-else class="ion-text-right"> unknown </ion-label>
+                <ion-label v-else class="ion-text-right"> 
+                    unknown 
+                </ion-label>
             </ion-item>
             <hr>
         </li>
@@ -90,6 +96,14 @@ export default {
         EventService.getStreamByUrl(url).then((response) => {
         // console.log(response)
         window.location.href=response
+      })
+    },
+    async download(url) {
+        EventService.downloadFromStream(url).then(() => {
+            
+        let filename = url.replace('lbry://','')
+        alert(`File ${filename} saved to Downloads folder !`)
+
       })
     },
   },
