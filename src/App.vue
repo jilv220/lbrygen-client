@@ -3,7 +3,7 @@
     <ion-header class="ion-no-border">
     </ion-header>
     <ion-content>
-      <img alt="Vue logo" src="./assets/logo.png">
+      <img class="lbry-logo" alt="Lbry logo" src="./assets/lbry_logo.svg">
       <Search/>
     </ion-content>
   </ion-app>
@@ -38,5 +38,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 4rem;
+}
+
+.lbry-logo {
+  max-width: 25%;
+  margin: 50px;
 }
 </style>

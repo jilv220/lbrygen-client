@@ -11,7 +11,7 @@
         <ion-button @click="searchContent(picked)">Search</ion-button>
     </div>
 
-    <form class="pb-06 flex-x ion-justify-content-center" autocomplete="off">
+    <form id="search-filter" class="pb-06 flex-x ion-justify-content-center" autocomplete="off">
         <input type="radio" id="tag" value="tag" v-model="picked">
         <label class="pl-02 pr-06" for="tag">Search by Tag</label>
         <input type="radio" id="text" value="text" v-model="picked">
@@ -20,23 +20,31 @@
 
     <div v-if="sourceData!=''">
         <li v-for="item in sourceData.result.items" :key="item">
-            <ion-item>
-                <ion-label id="streaming-url" class="m-04" @click="getStream(item.short_url)">
+            <ion-item id="search-result-item">
+
+                <ion-label id="streaming-url" class="mx-04 mr-02" @click="getStream(item.short_url)">
                     {{item.short_url.replace('lbry://','')}}
                 </ion-label>
-                <ion-label 
-                    v-if="item.value.source"
-                    class="ion-text-right"
-                    @click="download(item.short_url)"
-                >   
-                    <ion-button>
-                        Download
-                    </ion-button>
-                    {{item.value.source.media_type}} 
-                </ion-label>
-                <ion-label v-else class="ion-text-right"> 
-                    unknown 
-                </ion-label>
+
+                <div id="search-result-rear">
+                    <ion-label
+                        v-if="item.value.source"
+                        class="ion-text-right"
+                        @click="download(item.short_url)"
+                    >   
+                        <ion-button id="download-button">
+                            Download
+                        </ion-button>
+
+                        {{item.value.source.media_type}}
+
+                    </ion-label>
+                    
+                    <text v-else id="text-unknown"> 
+                        unknown 
+                    </text>
+                </div>
+
             </ion-item>
             <hr>
         </li>
@@ -52,7 +60,7 @@ import {
   IonButton,
   IonItem, 
   IonInput,
-  IonLabel
+  IonLabel,
 } from '@ionic/vue';
 
 export default {
@@ -60,7 +68,7 @@ export default {
       IonButton,
       IonItem, 
       IonInput,
-      IonLabel
+      IonLabel,
   },
   data() {
     return {
@@ -117,7 +125,6 @@ li {
 
 ion-button {
     cursor: pointer;
-    height: 39px;
 }
 ion-input {
     text-align: start;
@@ -125,6 +132,9 @@ ion-input {
     border-radius: 4px;
 }
 
+.p-04 {
+    padding: 0.4rem
+}
 .pb-04 {
     padding-bottom: 0.4rem;
 }
@@ -142,6 +152,13 @@ ion-input {
 }
 .m-04 {
     margin: 0.4rem;
+}
+.mx-04 {
+    margin-right: 0.4rem;
+    margin-left: 0.4rem;
+}
+.mt-02 {
+    margin-top: 0.2rem;
 }
 .mr-04 {
     margin-right: 0.4rem;
@@ -173,9 +190,31 @@ ion-input {
     justify-content: space-between;
 }
 
+#download-button {
+    margin-right: 12px;
+    margin-bottom: 12px;
+}
+
 #streaming-url {
     cursor: pointer;
 }
+
+#search-filter {
+    margin: 10px;
+}
+
+#search-result-item {
+    align-content: center;
+}
+
+#search-result-rear {
+    align-content: center;
+}
+
+#text-unknown {
+    padding-right: 10px;
+}
+
 @media (max-width: 900px) { 
     #content {
         margin-right: 4rem;
