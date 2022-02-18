@@ -4,14 +4,13 @@
     </ion-header>
     <ion-content>
       <img class="lbry-logo" alt="Lbry logo" src="./assets/lbry_logo.svg">
-      <Search/>
+        <router-view :key="$route.fullPath"></router-view>
     </ion-content>
   </ion-app>
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld.vue'
-import Search from './components/Search.vue'
+
 import { 
   IonApp,
   IonContent, 
@@ -21,8 +20,6 @@ import {
 export default {
   name: 'App',
   components: {
-    //HelloWorld,
-    Search,
     IonApp,
     IonContent, 
     IonHeader,

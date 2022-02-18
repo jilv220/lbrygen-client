@@ -102,8 +102,9 @@ export default {
     },
     async getStream(url) {
         EventService.getStreamByUrl(url).then((response) => {
-        // console.log(response)
+        
         window.location.href=response
+
       })
     },
     async download(url) {
