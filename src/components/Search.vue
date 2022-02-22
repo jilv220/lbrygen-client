@@ -6,9 +6,9 @@
             type="text" 
             v-model="search" 
             placeholder="Search some contents..." 
-            @keyup.enter="searchContent(picked)"
+            @keyup.enter="searchContent(picked, this.curr_page)"
         />
-        <ion-button @click="searchContent(picked)">Search</ion-button>
+        <ion-button @click="searchContent(picked, this.curr_page)">Search</ion-button>
     </div>
 
     <form id="search-filter" class="pb-06 flex-x ion-justify-content-center" autocomplete="off">
@@ -49,7 +49,16 @@
             <hr>
         </li>
     </div>
-   
+
+    <!-- pagination -->
+    <div v-if="sourceData!=''">
+        <p> {{ this.curr_page }} </p>
+        <p>
+            <button @click="prevPage()">prev</button>
+            <button @click="nextPage()">next</button>
+        </p>
+    </div>
+
   </div>
 </template>
 
@@ -75,25 +84,26 @@ export default {
       search: "",
       sourceData: "",
       streamUrl: "",
-      picked: "tag"
+      picked: "tag",
+      curr_page: 1
     };
   },
   mounted() {
 
   },
   methods: {
-    async searchContent(picked) {
+    async searchContent(picked, pageNum) {
       // console.log(picked)
       let normalizedSearch = Normalizer.run(this.search)
       switch(picked) {
           case "tag":
-              EventService.getContentByTag(normalizedSearch).then((response) => {
+              EventService.getContentByTag(normalizedSearch, pageNum).then((response) => {
                   // console.log(response)
                   this.sourceData = response
                 })
               break
           case "text":
-              EventService.getContentByText(normalizedSearch).then((response) => {
+              EventService.getContentByText(normalizedSearch, pageNum).then((response) => {
                   // console.log(response)
                   this.sourceData = response
                 })
@@ -115,6 +125,16 @@ export default {
 
       })
     },
+    prevPage() {
+        if (this.curr_page > 1) {
+            this.curr_page -= 1
+            this.searchContent(this.picked, this.curr_page)
+        }
+    },
+    nextPage() {
+        this.curr_page += 1
+        this.searchContent(this.picked, this.curr_page)
+    }
   },
 };
 </script>

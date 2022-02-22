@@ -13,15 +13,15 @@ export default {
     return res.data;
   },
 
-  async getContentByTag(tag) {
+  async getContentByTag(tag, pageNum = 1) {
 
-    let res = await axios.get(`${base_api}/search?t=${tag}`)
+    let res = await axios.get(`${base_api}/search?t=${tag}`, { params: { p: pageNum} } )
     return res.data 
   },
 
-  async getContentByText(text) {
+  async getContentByText(text, pageNum = 1) {
 
-    let res = await axios.get(`${base_api}/search?q=${text}`)
+    let res = await axios.get(`${base_api}/search?q=${text}`, { params: { p: pageNum} })
     return res.data
   }
 }

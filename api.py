@@ -16,6 +16,8 @@ app.config["DEBUG"] = True
 base = 'http://localhost'
 lbry_port = 5279
 
+page_size = 20
+
 # api 
 @app.route('/', methods=['GET'])
 def home():
@@ -30,10 +32,15 @@ def api_all():
     text = request.args.get("q")
     #print("param text is : " + str(text))
 
+    page_num = request.args.get("p")
+    #print("param text is : " + str(page_num))
+
     claim_search = requests.post(f'{base}:{lbry_port}', 
         json={  "method": "claim_search", 
                 "params": { "any_tags": [ str(tag) if tag != None else "" ], 
-                            "text": str(text) if text !=None else ""} }
+                            "text": str(text) if text !=None else "",
+                            "page": int(page_num) if page_num !=None else 1,
+                            "page_size": page_size }}
         ).json()
     
     #print(type(claim_search))
@@ -62,7 +69,7 @@ def get_stream_from_url():
                 "params": {"uri": str(uri), 
                            "save_file": is_download, 
                            "file_name": str(uri).replace('lbry://', ''),
-                           "timeout": 10}   }
+                           "timeout": 10    }}
         ).json()
 
     #print(lbry_get)
