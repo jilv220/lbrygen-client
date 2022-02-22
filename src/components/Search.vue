@@ -6,9 +6,9 @@
             type="text" 
             v-model="search" 
             placeholder="Search some contents..." 
-            @keyup.enter="searchContent(picked, this.curr_page)"
+            @keyup.enter="searchContent(picked, this.currPage)"
         />
-        <ion-button @click="searchContent(picked, this.curr_page)">Search</ion-button>
+        <ion-button @click="resetPage(); searchContent(picked, this.currPage);">Search</ion-button>
     </div>
 
     <form id="search-filter" class="pb-06 flex-x ion-justify-content-center" autocomplete="off">
@@ -52,7 +52,7 @@
 
     <!-- pagination -->
     <div v-if="sourceData!=''">
-        <p> {{ this.curr_page }} </p>
+        <p> {{ this.currPage }} </p>
         <p>
             <button @click="prevPage()">prev</button>
             <button @click="nextPage()">next</button>
@@ -85,7 +85,7 @@ export default {
       sourceData: "",
       streamUrl: "",
       picked: "tag",
-      curr_page: 1
+      currPage: 1
     };
   },
   mounted() {
@@ -93,8 +93,9 @@ export default {
   },
   methods: {
     async searchContent(picked, pageNum) {
-      // console.log(picked)
+
       let normalizedSearch = Normalizer.run(this.search)
+
       switch(picked) {
           case "tag":
               EventService.getContentByTag(normalizedSearch, pageNum).then((response) => {
@@ -126,14 +127,17 @@ export default {
       })
     },
     prevPage() {
-        if (this.curr_page > 1) {
-            this.curr_page -= 1
-            this.searchContent(this.picked, this.curr_page)
+        if (this.currPage > 1) {
+            this.currPage -= 1
+            this.searchContent(this.picked, this.currPage)
         }
     },
     nextPage() {
-        this.curr_page += 1
-        this.searchContent(this.picked, this.curr_page)
+        this.currPage += 1
+        this.searchContent(this.picked, this.currPage)
+    },
+    resetPage() {
+        this.currPage = 1
     }
   },
 };
