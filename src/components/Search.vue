@@ -6,7 +6,7 @@
             type="text" 
             v-model="search" 
             placeholder="Search some contents..." 
-            @keyup.enter="searchContent(picked, this.currPage)"
+            @keyup.enter="resetPage(); searchContent(picked, this.currPage);"
         />
         <ion-button @click="resetPage(); searchContent(picked, this.currPage);">Search</ion-button>
     </div>
@@ -53,9 +53,10 @@
     <!-- pagination -->
     <div v-if="sourceData!=''">
         <p> {{ this.currPage }} </p>
-        <p>
-            <button @click="prevPage()">prev</button>
-            <button @click="nextPage()">next</button>
+        <p> 
+            <button @click="resetPage(); searchContent(picked, this.currPage);">First</button>
+            <button @click="prevPage()">Prev</button>
+            <button @click="nextPage()">Next</button>
         </p>
     </div>
 
@@ -85,7 +86,7 @@ export default {
       sourceData: "",
       streamUrl: "",
       picked: "tag",
-      currPage: 1
+      currPage: 1,
     };
   },
   mounted() {
@@ -98,13 +99,13 @@ export default {
 
       switch(picked) {
           case "tag":
-              EventService.getContentByTag(normalizedSearch, pageNum).then((response) => {
+              EventService.getContent("tag", normalizedSearch, pageNum).then((response) => {
                   // console.log(response)
                   this.sourceData = response
                 })
               break
           case "text":
-              EventService.getContentByText(normalizedSearch, pageNum).then((response) => {
+              EventService.getContent("text", normalizedSearch, pageNum).then((response) => {
                   // console.log(response)
                   this.sourceData = response
                 })
@@ -113,8 +114,11 @@ export default {
     },
     async getStream(url) {
         EventService.getStreamByUrl(url).then((response) => {
-        
-        window.location.href=response
+
+        window.open(
+             response,
+            '_blank'
+        );
 
       })
     },
