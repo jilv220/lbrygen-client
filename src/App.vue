@@ -37,11 +37,19 @@ export default {
 <style>
 :root {
   /* dark theme colors */
-  --ion-background-color: #1f1f22;
+  /* --ion-background-color: #1f1f22;
   --ion-text-color: #ffffff;
   --ion-item-border-color: #ffffff;
   --ion-placeholder-color: #ffffff;
-  --ion-border-color: #ffffff;
+  --ion-border-color: #ffffff; */
+
+  /* light theme colors */
+  --ion-background-color: #ffffff;
+  --ion-text-color: #1f1f22;
+  --ion-item-border-color: #1f1f22;
+  --ion-placeholder-color: #1f1f22;
+  --ion-border-color: #1f1f22;
+
 }
 
 #app {
@@ -54,7 +62,7 @@ export default {
 }
 
 ion-toggle {
-  --background: white;
+  --background: grey;
 }
 
 .lbry-logo {
