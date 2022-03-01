@@ -12,6 +12,11 @@ router.isReady().then(() => {
 });
 
 /* 
+   Config global
+*/
+app.config.globalProperties.$theme = 0
+
+/* 
    Ionic CSS import
 */
 

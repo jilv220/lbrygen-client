@@ -44,7 +44,6 @@
                         unknown 
                     </text>
                 </div>
-
             </ion-item>
             <hr>
         </li>
@@ -54,9 +53,9 @@
     <div v-if="sourceData!=''">
         <p> {{ this.currPage }} </p>
         <p> 
-            <button @click="resetPage(); searchContent(picked, this.currPage);">First</button>
-            <button @click="prevPage()">Prev</button>
-            <button @click="nextPage()">Next</button>
+            <ion-button @click="resetPage(); searchContent(picked, this.currPage);">First</ion-button>
+            <ion-button @click="prevPage()">Prev</ion-button>
+            <ion-button @click="nextPage()">Next</ion-button>
         </p>
     </div>
 

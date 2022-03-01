@@ -3,8 +3,13 @@
     <ion-header class="ion-no-border">
     </ion-header>
     <ion-content>
+
       <img class="lbry-logo" alt="Lbry logo" src="./assets/lbry_logo.svg">
-        <router-view :key="$route.fullPath"></router-view>
+      <ion-toggle class="theme-toggle"
+      @ionChange="!this.$theme"
+      value="mushrooms">
+      </ion-toggle>
+      <router-view :key="$route.fullPath"></router-view>
     </ion-content>
   </ion-app>
 </template>
@@ -15,6 +20,7 @@ import {
   IonApp,
   IonContent, 
   IonHeader,
+  IonToggle
 } from '@ionic/vue';
 
 export default {
@@ -23,11 +29,21 @@ export default {
     IonApp,
     IonContent, 
     IonHeader,
-  }
+    IonToggle
+  },
 }
 </script>
 
 <style>
+:root {
+  /* dark theme colors */
+  --ion-background-color: #1f1f22;
+  --ion-text-color: #ffffff;
+  --ion-item-border-color: #ffffff;
+  --ion-placeholder-color: #ffffff;
+  --ion-border-color: #ffffff;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -37,8 +53,18 @@ export default {
   margin: 4rem;
 }
 
+ion-toggle {
+  --background: white;
+}
+
 .lbry-logo {
   max-width: 25%;
-  margin: 50px;
+  margin: 10px 0px 50px 300px;
+  padding: 10px;
+}
+
+.theme-toggle {
+  padding-left: 300px;
+  padding-bottom: 140px;
 }
 </style>
