@@ -6,8 +6,9 @@
 
       <img class="lbry-logo" alt="Lbry logo" src="./assets/lbry_logo.svg">
       <ion-toggle class="theme-toggle"
-      @ionChange="!this.$theme"
-      value="mushrooms">
+      @ionChange="switchTheme()"
+      v-model="checked"
+      >
       </ion-toggle>
       <router-view :key="$route.fullPath"></router-view>
     </ion-content>
@@ -31,25 +32,49 @@ export default {
     IonHeader,
     IonToggle
   },
+  data() {
+    return {
+      checked: false,
+    };
+  },
+  methods: {
+    switchTheme() {
+
+      this.$theme = !this.$theme
+
+      console.log(this.$theme)
+
+      if (this.checked) {
+        localStorage.setItem('theme', 'dark')
+        document.documentElement.setAttribute('data-theme', 'dark')
+      } else {
+        localStorage.setItem('theme', 'light')
+        document.documentElement.setAttribute('data-theme', 'light')
+      }
+
+    }
+  }
 }
 </script>
 
 <style>
-:root {
+
+[data-theme="dark"]:root {
   /* dark theme colors */
-  /* --ion-background-color: #1f1f22;
+  --ion-background-color: #1f1f22;
   --ion-text-color: #ffffff;
   --ion-item-border-color: #ffffff;
   --ion-placeholder-color: #ffffff;
-  --ion-border-color: #ffffff; */
+  --ion-border-color: #ffffff;
+}
 
+:root {
   /* light theme colors */
   --ion-background-color: #ffffff;
   --ion-text-color: #1f1f22;
   --ion-item-border-color: #1f1f22;
   --ion-placeholder-color: #1f1f22;
   --ion-border-color: #1f1f22;
-
 }
 
 #app {
