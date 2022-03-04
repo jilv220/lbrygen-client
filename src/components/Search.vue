@@ -154,6 +154,7 @@ li {
 ion-button {
     cursor: pointer;
 }
+
 ion-input {
     text-align: start;
     border: 1px solid black;
