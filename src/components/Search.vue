@@ -1,13 +1,15 @@
 <template>
   <div id="content" class="mx-10" >
     <div id="search-bar" class="pb-04 flex-x">
-        <ion-input 
-            class="mr-06"
+        <ion-toolbar class="mr-06">
+        <ion-input
             type="text" 
             v-model="search" 
             placeholder="Search some contents..." 
             @keyup.enter="resetPage(); searchContent(picked, this.currPage);"
-        />
+        >
+        </ion-input>
+        </ion-toolbar>
         <ion-button @click="resetPage(); searchContent(picked, this.currPage);">Search</ion-button>
     </div>
 
@@ -70,6 +72,7 @@ import {
   IonItem, 
   IonInput,
   IonLabel,
+  IonToolbar
 } from '@ionic/vue';
 
 export default {
@@ -78,6 +81,7 @@ export default {
       IonItem, 
       IonInput,
       IonLabel,
+      IonToolbar
   },
   data() {
     return {
@@ -155,10 +159,15 @@ ion-button {
     cursor: pointer;
 }
 
-ion-input {
-    text-align: start;
+ion-toolbar {
     border: 1px solid black;
     border-radius: 4px;
+    --min-height: 0px;
+}
+
+ion-input {
+    text-align: start;
+    border: transparent;
 }
 
 .p-04 {

@@ -58,7 +58,8 @@ export default {
   --ion-text-color: #ffffff;
   --ion-item-border-color: #ffffff;
   --ion-placeholder-color: #ffffff;
-  --ion-border-color: #ffffff;
+  --ion-border-color: #1f1f22;
+  --ion-toolbar-background: #1f1f22;
 }
 
 :root {
