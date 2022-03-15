@@ -12,17 +12,34 @@
         </ion-toggle>
       </div>
 
-      <router-view :key="$route.fullPath"></router-view>
+      <ion-menu side="start" content-id="menuContent">
+      <ion-content>
+        <ion-list>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+          <ion-item>Menu Item</ion-item>
+        </ion-list>
+      </ion-content>
+      </ion-menu>
+
+      <!-- Need to hint router-view to ion-menu -->
+      <router-view :key="$route.fullPath" id="menuContent"></router-view>
+
     </ion-content>
   </ion-app>
 </template>
 
 <script>
-import { 
-  IonApp, 
-  IonContent, 
-  IonHeader, 
-  IonToggle 
+import {
+  IonApp,
+  IonContent,
+  IonHeader,
+  IonMenu,
+  IonList,
+  IonItem,
+  IonToggle
 } from "@ionic/vue";
 
 export default {
@@ -31,7 +48,10 @@ export default {
     IonApp,
     IonContent,
     IonHeader,
-    IonToggle,
+    IonMenu,
+    IonList,
+    IonItem,
+    IonToggle
   },
   data() {
     return {
@@ -39,9 +59,9 @@ export default {
     };
   },
   beforeCreate() {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       this.$theme = 1
-      document.documentElement.setAttribute("data-theme", "dark");
+      document.documentElement.setAttribute("data-theme", "dark")
     }
   },
   methods: {
@@ -50,9 +70,9 @@ export default {
       //console.log(this.$theme);
 
       if (this.$theme) {
-        document.documentElement.setAttribute("data-theme", "dark");
+        document.documentElement.setAttribute("data-theme", "dark")
       } else {
-        document.documentElement.setAttribute("data-theme", "light");
+        document.documentElement.setAttribute("data-theme", "light")
       }
     },
   },
