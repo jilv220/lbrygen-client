@@ -18,7 +18,12 @@
 </template>
 
 <script>
-import { IonApp, IonContent, IonHeader, IonToggle } from "@ionic/vue";
+import { 
+  IonApp, 
+  IonContent, 
+  IonHeader, 
+  IonToggle 
+} from "@ionic/vue";
 
 export default {
   name: "App",
@@ -30,20 +35,23 @@ export default {
   },
   data() {
     return {
-      checked: false,
+      checked: this.$theme,
     };
+  },
+  beforeCreate() {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      this.$theme = 1
+      document.documentElement.setAttribute("data-theme", "dark");
+    }
   },
   methods: {
     switchTheme() {
       this.$theme = !this.$theme;
+      //console.log(this.$theme);
 
-      console.log(this.$theme);
-
-      if (this.checked) {
-        localStorage.setItem("theme", "dark");
+      if (this.$theme) {
         document.documentElement.setAttribute("data-theme", "dark");
       } else {
-        localStorage.setItem("theme", "light");
         document.documentElement.setAttribute("data-theme", "light");
       }
     },
