@@ -59,7 +59,17 @@ export default {
     };
   },
   beforeCreate() {
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+    if (window.localStorage.getItem('theme') == 'dark') {
+      this.$theme = 1
+      document.documentElement.setAttribute("data-theme", "dark")
+      window.localStorage.setItem('theme', 'dark');
+    } 
+    else if (window.localStorage.getItem('theme') == 'light') {
+      this.$theme = 0
+      document.documentElement.setAttribute("data-theme", "light")
+      window.localStorage.setItem('theme', 'light');
+    } 
+    else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       this.$theme = 1
       document.documentElement.setAttribute("data-theme", "dark")
     }
@@ -71,8 +81,10 @@ export default {
 
       if (this.$theme) {
         document.documentElement.setAttribute("data-theme", "dark")
+        window.localStorage.setItem('theme', 'dark');
       } else {
         document.documentElement.setAttribute("data-theme", "light")
+        window.localStorage.setItem('theme', 'light');
       }
     },
   },
