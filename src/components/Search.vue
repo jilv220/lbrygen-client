@@ -102,27 +102,10 @@ export default {
     async searchContent(picked, pageNum) {
 
       let normalizedSearch = Normalizer.run(this.search, picked)
-
-      switch(picked) {
-          case "tag":
-              EventService.getContent("tag", normalizedSearch, pageNum).then((response) => {
+      EventService.getContent(picked, normalizedSearch, pageNum).then((response) => {
                   // console.log(response)
                   this.sourceData = response
                 })
-              break
-          case "text":
-              EventService.getContent("text", normalizedSearch, pageNum).then((response) => {
-                  // console.log(response)
-                  this.sourceData = response
-                })
-              break
-          case "channel":
-              EventService.getContent("channel", normalizedSearch, pageNum).then((response) => {
-                  console.log(response)
-                  this.sourceData = response
-                })
-              break
-      }
     },
     async getStream(url) {
         EventService.getStreamByUrl(url).then((response) => {

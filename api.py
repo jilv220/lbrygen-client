@@ -24,7 +24,7 @@ def home():
     return "<h1>Distant Reading Archive</h1><p>This site is a prototype API for distant reading of science fiction novels.</p>"
 
 @app.route('/api/search', methods=['GET'])
-def api_all():
+def api_search():
 
     tag = request.args.get("t")
     text = request.args.get("q")
@@ -36,15 +36,18 @@ def api_all():
     #print("param text is : " + str(page_num))
     #print("param channel is : " + str(channel))
 
-    claim_search = requests.post(f'{base}:{lbry_port}', 
-        json={  "method": "claim_search", 
+    params = {  "method": "claim_search", 
                 "params": { "any_tags": [ str(tag) if tag != None else "" ], 
                             "text": str(text) if text !=None else "",
-                            "channel" : str(channel) if channel !=None else "",
                             "page": int(page_num) if page_num !=None else 1,
                             "page_size": page_size,
                             "order_by" : "release_time" }}
-        ).json()
+
+    # handle channel seperately                
+    if channel != None:
+        params["params"]["channel"] = channel
+
+    claim_search = requests.post(f'{base}:{lbry_port}', json= params).json()
     
     #print(type(claim_search))
     #print(claim_search.keys())
