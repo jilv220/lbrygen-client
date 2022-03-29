@@ -14,10 +14,13 @@
     </div>
 
     <form id="search-filter" class="pb-06 flex-x ion-justify-content-center" autocomplete="off">
+        <ion-label class="pl-02 pr-06">Search by : </ion-label>
         <input type="radio" id="tag" value="tag" v-model="picked">
-        <label class="pl-02 pr-06" for="tag">Search by Tag</label>
+        <label class="pl-02 pr-06" for="tag">Tag</label>
         <input type="radio" id="text" value="text" v-model="picked">
-        <label class="pl-02" for="text">Search by Text</label>
+        <label class="pl-02 pr-06" for="text">Text</label>
+        <input type="radio" id="channel" value="channel" v-model="picked">
+        <label class="pl-02" for="channel">Channel</label>
     </form>
 
     <div v-if="sourceData!=''">
@@ -110,6 +113,12 @@ export default {
           case "text":
               EventService.getContent("text", normalizedSearch, pageNum).then((response) => {
                   // console.log(response)
+                  this.sourceData = response
+                })
+              break
+          case "channel":
+              EventService.getContent("channel", normalizedSearch, pageNum).then((response) => {
+                  console.log(response)
                   this.sourceData = response
                 })
               break

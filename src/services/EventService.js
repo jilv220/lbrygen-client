@@ -16,11 +16,17 @@ export default {
   async getContent(type, content, pageNum = 1) {
 
     let queryType = ''
-    if (type == "tag") {
-      queryType = 't'
-    } 
-    else if (type == "text") {
-      queryType = 'q'
+
+    switch (type) {
+      case "tag":
+        queryType = 't'
+        break
+      case "text":
+        queryType = 'q'
+        break
+      case "channel":
+        queryType = 'c'
+        break
     }
 
     let res = await axios.get(`${base_api}/search?${queryType}=${content}`, { params: { p: pageNum} } )

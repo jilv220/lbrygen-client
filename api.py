@@ -27,20 +27,22 @@ def home():
 def api_all():
 
     tag = request.args.get("t")
-    #print("param tag is : " + str(tag))
-
     text = request.args.get("q")
-    #print("param text is : " + str(text))
-
     page_num = request.args.get("p")
+    channel = request.args.get("c")
+
+    #print("param tag is : " + str(tag))
+    #print("param text is : " + str(text))
     #print("param text is : " + str(page_num))
+    #print("param channel is : " + str(channel))
 
     claim_search = requests.post(f'{base}:{lbry_port}', 
         json={  "method": "claim_search", 
                 "params": { "any_tags": [ str(tag) if tag != None else "" ], 
                             "text": str(text) if text !=None else "",
                             "page": int(page_num) if page_num !=None else 1,
-                            "page_size": page_size }}
+                            "page_size": page_size,
+                            "order_by" : "release_time" }}
         ).json()
     
     #print(type(claim_search))
