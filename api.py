@@ -40,6 +40,7 @@ def api_all():
         json={  "method": "claim_search", 
                 "params": { "any_tags": [ str(tag) if tag != None else "" ], 
                             "text": str(text) if text !=None else "",
+                            "channel" : str(channel) if channel !=None else "",
                             "page": int(page_num) if page_num !=None else 1,
                             "page_size": page_size,
                             "order_by" : "release_time" }}

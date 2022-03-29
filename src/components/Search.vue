@@ -101,7 +101,7 @@ export default {
   methods: {
     async searchContent(picked, pageNum) {
 
-      let normalizedSearch = Normalizer.run(this.search)
+      let normalizedSearch = Normalizer.run(this.search, picked)
 
       switch(picked) {
           case "tag":
