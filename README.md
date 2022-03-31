@@ -1,6 +1,9 @@
 # lbrygen-client
 
-Clone the repo with `git clone https://github.com/jilv220/lbrygen-client.git` <br>
+Clone the repo with 
+```
+git clone https://github.com/jilv220/lbrygen-client.git
+```
 
 ## Requirement
 
