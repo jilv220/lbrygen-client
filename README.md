@@ -3,25 +3,8 @@
 ## Requirement
 You need to have `lbrynet` installed.
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm start
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Deploy
+1. Run `lbrynet start` first. 
+2. Run `python api.py`
+3. Run `npm run serve` to develop
+4. Run `npm run build` to build and run `serve -s dist/ ` to serve
