@@ -3,11 +3,20 @@
 Clone the repo with `git clone https://github.com/jilv220/lbrygen-client.git` <br>
 
 ## Requirement
-`chmod +x lbrynet_install.sh` 
-Then `./lbrynet_install.sh` to install `lbrynet`. <br>
 
-`sudo npm install` to install all dependencies for the vue frontend. <br>
-`pip install -r requirements.txt` to install all dependencies for the python api.
+Install `lbrynet`
+```
+chmod +x lbrynet_install.sh
+./lbrynet_install.sh
+``` 
+Install dependencies for the vue frontend
+```
+sudo npm install
+```
+Install dependencies for the python api.
+```
+pip install -r requirements.txt
+```
 
 ## Deployment
 1. Run `./lbrynet start` first. 
