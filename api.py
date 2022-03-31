@@ -47,7 +47,7 @@ def api_search():
     if channel != None:
         params["params"]["channel"] = channel
 
-    claim_search = requests.post(f'{base}:{lbry_port}', json= params).json()
+    claim_search = requests.post(f'{base}:{lbry_port}', json = params).json()
     
     #print(type(claim_search))
     #print(claim_search.keys())
@@ -70,15 +70,15 @@ def get_stream_from_url():
     if(download == "y"):
         is_download = True
 
-    lbry_get = requests.post(f'{base}:{lbry_port}', 
-        json={  "method": "get", 
+    params = {  "method": "get", 
                 "params": {"uri": str(uri), 
                            "save_file": is_download, 
-                           "file_name": str(uri).replace('lbry://', ''),
                            "timeout": 10    }}
-        ).json()
 
-    #print(lbry_get)
+    if is_download: 
+        params["params"]["file_name"] = str(uri).replace('lbry://', '')           
+
+    lbry_get = requests.post(f'{base}:{lbry_port}', json = params).json()
 
     try:
         streaming_url = lbry_get["result"]["streaming_url"]
