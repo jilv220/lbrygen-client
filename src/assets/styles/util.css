@@ -1,6 +1,10 @@
+/* 
+   Padding
+*/
 .p-04 {
     padding: 0.4rem
 }
+
 .pt-04 {
     padding-top: 0.4rem;
 }
@@ -17,6 +21,7 @@
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
 }
+
 .pl-02 {
     padding-left: 0.2rem;
 }
@@ -26,21 +31,43 @@
 .pr-06 {
     padding-right: 0.6rem;
 }
+
+/* 
+   Margin
+*/
 .m-04 {
     margin: 0.4rem;
 }
-.mx-04 {
-    margin-right: 0.4rem;
-    margin-left: 0.4rem;
-}
+
 .mt-02 {
     margin-top: 0.2rem;
 }
+.mt-04 {
+    margin-top: 0.4rem;
+}
+.mt-06 {
+    margin-top: 0.6rem;
+}
+.mb-04 {
+    margin-bottom: 0.4rem;
+}
+.mb-06 {
+    margin-bottom: 0.6rem;
+}
+.my-04 {
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
 .mr-04 {
     margin-right: 0.4rem;
 }
 .mr-06 {
     margin-right: 0.6rem;
+}
+.mx-04 {
+    margin-right: 0.4rem;
+    margin-left: 0.4rem;
 }
 .mx-4 {
     margin-right: 4rem;
@@ -50,6 +77,10 @@
     margin-right: 10rem;
     margin-left: 10rem;
 }
+
+/* 
+   Text
+*/
 .text-right {
     text-align: right;
 }
@@ -60,6 +91,10 @@
     font-size: 1rem;
     line-height: 1.5rem;
 }
+
+/* 
+   Structure
+*/
 .fit-content {
     min-width: fit-content;
 }
