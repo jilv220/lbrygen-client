@@ -24,7 +24,7 @@
             <input type="radio" id="image" value="image" v-model="streamType">
             <label class="pl-02 pr-06" for="image">Image</label>
 
-            <input type="radio" id="document" value="Document" v-model="streamType">
+            <input type="radio" id="document" value="document" v-model="streamType">
             <label class="pl-02" for="document">Document</label>
         </form>
 
@@ -150,12 +150,12 @@ export default {
     prevPage() {
         if (this.currPage > 1) {
             this.currPage -= 1
-            this.searchContent(this.searchType, this.currPage)
+            this.searchContent(this.searchType, this.streamType, this.currPage)
         }
     },
     nextPage() {
         this.currPage += 1
-        this.searchContent(this.searchType, this.currPage)
+        this.searchContent(this.searchType, this.streamType, this.currPage)
     },
     resetPage() {
         this.currPage = 1
