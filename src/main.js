@@ -3,6 +3,11 @@ import App from './App.vue'
 import router from '@/router'
 import { IonicVue } from '@ionic/vue';
 
+/* 
+   Global util css style sheet
+*/
+require('@/assets/styles/util.css')
+
 const app = createApp(App)
   .use(IonicVue)
   .use(router);

@@ -1,7 +1,7 @@
 <template>
   <div id="content" class="mx-10" >
-    <div id="search-bar" class="pb-04 flex-x">
-        <ion-toolbar class="mr-06">
+    <div id="search-bar" class="pb-04 flex-x fit-content">
+        <ion-toolbar class="mr-06 fit-content">
         <ion-input
             type="text" 
             v-model="search" 
@@ -13,7 +13,7 @@
         <ion-button @click="resetPage(); searchContent(searchType, streamType, this.currPage);">Search</ion-button>
     </div>
 
-    <div id="filter-area" class="pb-06 flex-x ion-justify-content-center">
+    <div id="filter-area" class="pt-04 pb-06 flex-x ion-justify-content-center">
 
         <form id="stream-filter" autocomplete="off">
             <ion-label class="pl-02 pr-06">Filter by : </ion-label>
@@ -44,10 +44,10 @@
     </div>
 
     <div v-if="sourceData!=''">
-        <li v-for="item in sourceData.result.items" :key="item">
+        <ion-list v-for="item in sourceData.result.items" :key="item" lines="none">
             <ion-item id="search-result-item">
 
-                <ion-label id="streaming-url" class="mx-04 mr-02" @click="getStream(item.short_url)">
+                <ion-label id="streaming-url" @click="getStream(item.short_url)">
                     {{item.short_url.replace('lbry://','')}}
                 </ion-label>
 
@@ -55,12 +55,7 @@
                     <ion-label
                         v-if="item.value.source"
                         class="ion-text-right"
-                        @click="download(item.short_url)"
                     >   
-                        <ion-button id="download-button">
-                            Download
-                        </ion-button>
-
                         {{item.value.source.media_type}}
 
                     </ion-label>
@@ -69,15 +64,16 @@
                         unknown 
                     </text>
                 </div>
+                
             </ion-item>
             <hr>
-        </li>
+        </ion-list>
     </div>
 
     <!-- pagination -->
     <div v-if="sourceData!=''">
         <p> {{ this.currPage }} </p>
-        <p> 
+        <p class="flex-x-center"> 
             <ion-button @click="resetPage(); searchContent(searchType, streamType, this.currPage);">First</ion-button>
             <ion-button @click="prevPage()">Prev</ion-button>
             <ion-button @click="nextPage()">Next</ion-button>
@@ -93,6 +89,7 @@ import Normalizer from '@/utils/Normalizer.js'
 import { 
   IonButton,
   IonItem, 
+  IonList,
   IonInput,
   IonLabel,
   IonToolbar
@@ -102,6 +99,7 @@ export default {
   components: {
       IonButton,
       IonItem, 
+      IonList,
       IonInput,
       IonLabel,
       IonToolbar
@@ -131,7 +129,9 @@ export default {
     },
     async getStream(url) {
         EventService.getStreamByUrl(url).then((response) => {
-
+        
+        // write url to database using orm
+        
         window.open(
              response,
             '_blank'
@@ -169,6 +169,11 @@ li {
     list-style-type: none;
 }
 
+hr {
+    height: auto !important;
+    border-width: thin !important;
+}
+
 ion-button {
     cursor: pointer;
 }
@@ -184,62 +189,9 @@ ion-input {
     border: transparent;
 }
 
-.p-04 {
-    padding: 0.4rem
-}
-.pb-04 {
-    padding-bottom: 0.4rem;
-}
-.pb-06 {
-    padding-bottom: 0.6rem;
-}
-.pl-02 {
-    padding-left: 0.2rem;
-}
-.pr-04 {
-    padding-right: 0.4rem;
-}
-.pr-06 {
-    padding-right: 0.6rem;
-}
-.m-04 {
-    margin: 0.4rem;
-}
-.mx-04 {
-    margin-right: 0.4rem;
-    margin-left: 0.4rem;
-}
-.mt-02 {
-    margin-top: 0.2rem;
-}
-.mr-04 {
-    margin-right: 0.4rem;
-}
-.mr-06 {
-    margin-right: 0.6rem;
-}
-.mx-4 {
-    margin-right: 4rem;
-    margin-left: 4rem;
-}
-.mx-10 {
-    margin-right: 10rem;
-    margin-left: 10rem;
-}
-.text-right {
-    text-align: right;
-}
-.text-left {
-    text-align: left;
-}
-.text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-}
-.flex-x {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.list-md {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
 }
 
 #download-button {
