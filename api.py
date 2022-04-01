@@ -29,6 +29,7 @@ def api_search():
     tag = request.args.get("t")
     text = request.args.get("q")
     page_num = request.args.get("p")
+    stream_type = request.args.get("st")
     channel = request.args.get("c")
 
     #print("param tag is : " + str(tag))
@@ -41,6 +42,7 @@ def api_search():
                             "text": str(text) if text !=None else "",
                             "page": int(page_num) if page_num !=None else 1,
                             "page_size": page_size,
+                            "stream_types": [ str(stream_type) if stream_type!=None else "video" ],
                             "order_by" : "release_time" }}
 
     # handle channel seperately                

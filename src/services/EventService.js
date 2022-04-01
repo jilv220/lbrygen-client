@@ -13,7 +13,7 @@ export default {
     return res.data;
   },
 
-  async getContent(type, content, pageNum = 1) {
+  async getContent(type, streamType, content, pageNum = 1) {
 
     let queryType = ''
 
@@ -29,7 +29,9 @@ export default {
         break
     }
 
-    let res = await axios.get(`${base_api}/search?${queryType}=${content}`, { params: { p: pageNum} } )
+    let params = { p: pageNum, st: streamType}
+
+    let res = await axios.get(`${base_api}/search?${queryType}=${content}`, { params: params } )
     return res.data 
   },
   

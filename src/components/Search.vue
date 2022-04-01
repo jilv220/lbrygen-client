@@ -6,22 +6,42 @@
             type="text" 
             v-model="search" 
             placeholder="Search some contents..." 
-            @keyup.enter="resetPage(); searchContent(picked, this.currPage);"
+            @keyup.enter="resetPage(); searchContent(searchType, streamType, this.currPage);"
         >
         </ion-input>
         </ion-toolbar>
-        <ion-button @click="resetPage(); searchContent(picked, this.currPage);">Search</ion-button>
+        <ion-button @click="resetPage(); searchContent(searchType, streamType, this.currPage);">Search</ion-button>
     </div>
 
-    <form id="search-filter" class="pb-06 flex-x ion-justify-content-center" autocomplete="off">
-        <ion-label class="pl-02 pr-06">Search by : </ion-label>
-        <input type="radio" id="tag" value="tag" v-model="picked">
-        <label class="pl-02 pr-06" for="tag">Tag</label>
-        <input type="radio" id="text" value="text" v-model="picked">
-        <label class="pl-02 pr-06" for="text">Text</label>
-        <input type="radio" id="channel" value="channel" v-model="picked">
-        <label class="pl-02" for="channel">Channel</label>
-    </form>
+    <div id="filter-area" class="pb-06 flex-x ion-justify-content-center">
+
+        <form id="stream-filter" autocomplete="off">
+            <ion-label class="pl-02 pr-06">Filter by : </ion-label>
+
+            <input type="radio" id="video" value="video" v-model="streamType">
+            <label class="pl-02 pr-06" for="video">Video</label>
+
+            <input type="radio" id="image" value="image" v-model="streamType">
+            <label class="pl-02 pr-06" for="image">Image</label>
+
+            <input type="radio" id="document" value="Document" v-model="streamType">
+            <label class="pl-02" for="document">Document</label>
+        </form>
+
+        <form id="search-filter" autocomplete="off">
+            <ion-label class="pl-02 pr-06">Search by : </ion-label>
+
+            <input type="radio" id="tag" value="tag" v-model="searchType">
+            <label class="pl-02 pr-06" for="tag">Tag</label>
+
+            <input type="radio" id="text" value="text" v-model="searchType">
+            <label class="pl-02 pr-06" for="text">Text</label>
+
+            <input type="radio" id="channel" value="channel" v-model="searchType">
+            <label class="pl-02" for="channel">Channel</label>
+        </form>
+
+    </div>
 
     <div v-if="sourceData!=''">
         <li v-for="item in sourceData.result.items" :key="item">
@@ -58,7 +78,7 @@
     <div v-if="sourceData!=''">
         <p> {{ this.currPage }} </p>
         <p> 
-            <ion-button @click="resetPage(); searchContent(picked, this.currPage);">First</ion-button>
+            <ion-button @click="resetPage(); searchContent(searchType, streamType, this.currPage);">First</ion-button>
             <ion-button @click="prevPage()">Prev</ion-button>
             <ion-button @click="nextPage()">Next</ion-button>
         </p>
@@ -91,7 +111,8 @@ export default {
       search: "",
       sourceData: "",
       streamUrl: "",
-      picked: "tag",
+      searchType: "tag",
+      streamType: "video",
       currPage: 1,
     };
   },
@@ -99,11 +120,12 @@ export default {
 
   },
   methods: {
-    async searchContent(picked, pageNum) {
+    async searchContent(searchType, streamType, pageNum) {
 
-      let normalizedSearch = Normalizer.run(this.search, picked)
-      EventService.getContent(picked, normalizedSearch, pageNum).then((response) => {
-                  // console.log(response)
+      let normalizedSearch = Normalizer.run(this.search, searchType)
+
+      EventService.getContent(searchType, streamType, normalizedSearch, pageNum).then((response) => {
+                  console.log(response)
                   this.sourceData = response
                 })
     },
@@ -128,12 +150,12 @@ export default {
     prevPage() {
         if (this.currPage > 1) {
             this.currPage -= 1
-            this.searchContent(this.picked, this.currPage)
+            this.searchContent(this.searchType, this.currPage)
         }
     },
     nextPage() {
         this.currPage += 1
-        this.searchContent(this.picked, this.currPage)
+        this.searchContent(this.searchType, this.currPage)
     },
     resetPage() {
         this.currPage = 1
@@ -230,7 +252,11 @@ ion-input {
 }
 
 #search-filter {
-    margin: 10px;
+    margin-right: auto;
+}
+
+#stream-filter {
+    margin-right: auto;
 }
 
 #search-result-item {
