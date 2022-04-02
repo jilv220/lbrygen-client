@@ -25,7 +25,11 @@
       </ion-menu>
 
       <!-- Need to hint router-view to ion-menu -->
-      <router-view :key="$route.fullPath" id="menuContent"></router-view>
+      <router-view id="menuContent" v-slot="{ Component }">
+        <keep-alive>
+          <component :is="Component" :key="$route.fullPath" />
+        </keep-alive>
+      </router-view>
 
     </ion-content>
   </ion-app>
@@ -51,7 +55,7 @@ export default {
     IonMenu,
     IonList,
     IonItem,
-    IonToggle
+    IonToggle,
   },
   data() {
     return {

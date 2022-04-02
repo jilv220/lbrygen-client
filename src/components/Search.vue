@@ -47,7 +47,7 @@
         <ion-list v-for="item in sourceData.result.items" :key="item" lines="none">
             <ion-item id="search-result-item">
 
-                <ion-thumbnail slot="start">
+                <ion-thumbnail slot="start" @click="getStream(item.short_url)">
                     <ion-img v-if="item.value.thumbnail" :src="item.value.thumbnail.url"></ion-img>
                 </ion-thumbnail>
 
@@ -116,7 +116,6 @@ export default {
     return {
       search: "",
       sourceData: "",
-      streamUrl: "",
       searchType: "tag",
       streamType: "video",
       currPage: 1,
@@ -138,12 +137,7 @@ export default {
     async getStream(url) {
         EventService.getStreamByUrl(url).then((response) => {
         
-        // write url to database using orm
-        
-        window.open(
-             response,
-            '_blank'
-        );
+        this.$router.push({ path: '/stream', query: { st: response } })
 
       })
     },
@@ -197,6 +191,7 @@ ion-thumbnail {
     width: 200px;
     height: 100px;
     object-fit: cover;
+    cursor: pointer;
 }
 
 ion-input {
