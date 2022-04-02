@@ -1,16 +1,11 @@
 <template>
     <div>
-        <div id="Container" 
-        style="padding-bottom:56.25%; position:relative;
-        display:block; width: 100%">
-
-            <iframe width="100%" height="100%" 
+        <div id="container">
+            <iframe
                 allowfullscreen webkitallowfullscreen
                 :src="this.stream" 
-                frameborder="0"
-                style="position:absolute; top:0; left: 0">
+                frameborder="0">
             </iframe>
-
         </div>
     </div>
 </template>
@@ -27,5 +22,18 @@ export default {
 </script>
 
 <style>
+iframe {
+    position: absolute; 
+    width: 50%;
+    height: 50%; 
+    top: 0; 
+    left: 10rem;
+}
 
+#container {
+    padding-bottom:56.25%; 
+    position:relative;
+    display:block; 
+    width: 100%
+}
 </style>

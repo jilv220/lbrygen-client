@@ -21,6 +21,10 @@
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
 }
+.py-10 {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+}
 
 .pl-02 {
     padding-left: 0.2rem;
@@ -30,6 +34,10 @@
 }
 .pr-06 {
     padding-right: 0.6rem;
+}
+.px-10 {
+    padding-right: 10rem;
+    padding-left: 10rem;
 }
 
 /* 
