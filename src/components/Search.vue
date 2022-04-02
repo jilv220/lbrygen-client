@@ -47,6 +47,10 @@
         <ion-list v-for="item in sourceData.result.items" :key="item" lines="none">
             <ion-item id="search-result-item">
 
+                <ion-thumbnail slot="start">
+                    <ion-img v-if="item.value.thumbnail" :src="item.value.thumbnail.url"></ion-img>
+                </ion-thumbnail>
+
                 <ion-label id="streaming-url" @click="getStream(item.short_url)">
                     {{item.short_url.replace('lbry://','')}}
                 </ion-label>
@@ -88,21 +92,25 @@ import EventService from "@/services/EventService.js"
 import Normalizer from '@/utils/Normalizer.js'
 import { 
   IonButton,
+  IonImg,
   IonItem, 
   IonList,
   IonInput,
   IonLabel,
-  IonToolbar
+  IonToolbar,
+  IonThumbnail
 } from '@ionic/vue';
 
 export default {
   components: {
       IonButton,
+      IonImg,
       IonItem, 
       IonList,
       IonInput,
       IonLabel,
-      IonToolbar
+      IonToolbar,
+      IonThumbnail
   },
   data() {
     return {
@@ -182,6 +190,13 @@ ion-toolbar {
     border: 1px solid black;
     border-radius: 4px;
     --min-height: 0px;
+}
+
+ion-thumbnail {
+    float: left;
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
 }
 
 ion-input {

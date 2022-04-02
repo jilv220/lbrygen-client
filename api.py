@@ -43,7 +43,8 @@ def api_search():
                             "page": int(page_num) if page_num !=None else 1,
                             "page_size": page_size,
                             "stream_types": [ str(stream_type) if stream_type!=None else "video" ],
-                            "order_by" : "release_time" }}
+                            "order_by" : "release_time",
+                            "no_totals" : True}}
 
     # handle channel seperately                
     if channel != None:
